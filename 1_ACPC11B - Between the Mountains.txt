@@ -1,0 +1,122 @@
+/*
+ACPC11B - Between the Mountains
+no tags 
+Did you try to ride a telepherique (cable car)? It is a lot of fun. Our company is trying to build a new telepherique line between two high mountains and you will be invited for a free ride. The trick to get your free ride is to help the company in building the telepherique line.
+
+The company wants to build two platforms, one on each mountain. The line will extend between these two platforms. The suitable points for holding a platform in each mountain were determined, and the altitudes of these points were reported.
+
+One of the talented engineers suggested that the company can save a lot of energy if the two stations have the same altitude or at least have altitudes which are as close to each other as possible. Your job is to select two points, one at each mountain, from those suitable points, so that the altitude difference between the two points is as little as possible.
+
+Input
+Your program will be tested on one or more test cases. The first line of the input will be a single integer T , the number of test cases (1 ≤ T ≤ 100). Follows 2T lines containing the test cases, each on a pair of lines.
+
+Each of the two lines in a case describe the altitudes of suitable points to build a platform on one mountain. Each line starts with an integer N , the number of reported altitudes (1 ≤ N ≤ 1,000), followed by N integers, which represent the altitudes reported from this mountain. Any altitude value will be between 1 and 1,000,000, inclusive.
+
+Output
+For each test case, output, on a single line, a single number representing the minimum
+
+altitude difference between two suitable platform points, one at each mountain.
+
+Example
+Input:
+2
+8 1 3 5 7 9 7 3 1
+8 2 4 6 8 10 8 6 2
+8 2 3 5 10 9 3 2 1
+7 1 2 6 12 13 3 2
+
+Output:
+1
+0
+*/
+#include <iostream>
+using namespace std;
+
+int main() {
+	
+	// your code here
+	
+	int t;
+	cin>>t;
+	
+	int a[1005], b[1005];
+	while(t--)
+	{
+		int m, n;
+		cin>>m;
+		for(int i=0; i<m; i++)
+		{
+			cin>>a[i];
+		}
+		
+		cin>>n;
+		for(int i=0; i<n; i++)
+		{
+			cin>>b[i];
+		}
+		
+		int ans = 1000000;
+		for(int i=0; i<m; i++)
+		{
+			for(int j=0; j<n; j++)
+			{
+				int diff = abs(a[i] - b[j]);
+				if(ans > diff)
+					ans = diff;
+			}
+		}
+		cout<<ans<<endl;
+	}
+
+	return 0;
+}
+
+//alternate solution
+
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+	
+	// your code here
+	
+	int t;
+	cin>>t;
+	
+	int a[1005], b[1005];
+	while(t--)
+	{
+		int m, n;
+		cin>>m;
+		for(int i=0; i<m; i++)
+		{
+			cin>>a[i];
+		}
+		
+		cin>>n;
+		for(int i=0; i<n; i++)
+		{
+			cin>>b[i];
+		}
+		
+		sort(a, a+m);
+		sort(b, b+n);
+		int ans = 1000000;
+		int i = 0, j = 0;
+		while(i<m && j<n)
+		{
+			int diff = abs(a[i] - b[j]);
+			if(ans > diff)
+				ans = diff;
+				
+			if(a[i] < b[j])
+				i++;
+			else
+				j++;
+		}
+		cout<<ans<<endl;
+	}
+
+	return 0;
+}
